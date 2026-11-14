@@ -10,3 +10,6 @@ data/
 .DS_Store
 next-env.d.ts
 threads/
+
+*.tsbuildinfo
+/*.png

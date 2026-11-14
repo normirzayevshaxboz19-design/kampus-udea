@@ -1,0 +1,665 @@
+/* Master Design System for UDEA Pulse */
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* --- 2.1 Exact CSS Custom Properties & Color Tokens --- */
+/* Light Theme: "Editorial Paper & Blueprint Cobalt" */
+:root {
+  /* Canvas & Surfaces — warm cream, white cards */
+  --bg-canvas: #F4F1EB;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #EDE9E1;
+  --bg-subtle: #F8F5F0;
+  --bg-glass: rgba(255, 255, 255, 0.86);
+  --bg-glass-heavy: rgba(255, 255, 255, 0.96);
+
+  /* Text — warm near-black */
+  --text-primary: #1D1A17;
+  --text-secondary: #6E6862;
+  --text-tertiary: #A09A92;
+  --text-inverted: #FFFFFF;
+
+  /* Borders */
+  --border-hairline: rgba(29, 26, 23, 0.07);
+  --border-strong: rgba(29, 26, 23, 0.14);
+  --border-glass: rgba(255, 255, 255, 0.7);
+
+  /* Brand accent — vermilion */
+  --accent: #C5482C;
+  --accent-strong: #A93B23;
+  --accent-soft: rgba(197, 72, 44, 0.1);
+
+  /* Geometry */
+  --radius-card: 22px;
+  --radius-control: 14px;
+  --radius-pill: 999px;
+
+  /* Shadows — soft, diffuse */
+  --shadow-card: 0 1px 2px rgba(29, 26, 23, 0.04), 0 14px 34px -18px rgba(29, 26, 23, 0.22);
+  --shadow-hover: 0 18px 44px -20px rgba(29, 26, 23, 0.3), 0 4px 12px -4px rgba(29, 26, 23, 0.08);
+  --shadow-modal: 0 24px 64px -12px rgba(29, 26, 23, 0.28);
+}
+
+/* Dark Theme: "Carbon Obsidian & Neon Signal" */
+[data-theme="dark"] {
+  --bg-canvas: #14110F;
+  --bg-surface: #1D1916;
+  --bg-elevated: #2A2521;
+  --bg-subtle: #191512;
+  --bg-glass: rgba(29, 25, 22, 0.82);
+  --bg-glass-heavy: rgba(29, 25, 22, 0.95);
+
+  --text-primary: #F6F2EC;
+  --text-secondary: #B7AFA6;
+  --text-tertiary: #877F76;
+  --text-inverted: #14110F;
+
+  --border-hairline: rgba(246, 242, 236, 0.08);
+  --border-strong: rgba(246, 242, 236, 0.18);
+  --border-glass: rgba(255, 255, 255, 0.12);
+
+  --accent: #E2604A;
+  --accent-strong: #C5482C;
+  --accent-soft: rgba(226, 96, 74, 0.16);
+
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.35), 0 18px 40px -22px rgba(0, 0, 0, 0.8);
+  --shadow-hover: 0 22px 50px -24px rgba(0, 0, 0, 0.85);
+  --shadow-modal: 0 28px 80px -12px rgba(0, 0, 0, 0.85);
+}
+
+/* --- 2.2 Category Semantic Signal Tokens --- */
+:root {
+/* FinTech category */
+--accent-fintech: #10B981;
+--badge-fintech: rgba(16, 185, 129, 0.14);
+--border-fintech: rgba(16, 185, 129, 0.35);
+--gradient-fintech: radial-gradient(at 15% 15%, #059669 0%, #064E3B 55%, #022C22 100%);
+
+/* Tech category */
+--accent-tech: #8B5CF6;
+--badge-tech: rgba(139, 92, 246, 0.15);
+--border-tech: rgba(139, 92, 246, 0.35);
+--gradient-tech: radial-gradient(at 80% 20%, #7C3AED 0%, #3B0764 55%, #1E1B4B 100%);
+
+/* Academic category */
+--accent-academic: #2563EB;
+--badge-academic: rgba(37, 99, 235, 0.14);
+--border-academic: rgba(37, 99, 235, 0.35);
+--gradient-academic: radial-gradient(at 20% 80%, #2563EB 0%, #1E3A8A 55%, #0F172A 100%);
+
+/* Sports category */
+--accent-sports: #84CC16;
+--badge-sports: rgba(132, 204, 22, 0.16);
+--border-sports: rgba(132, 204, 22, 0.38);
+--gradient-sports: radial-gradient(at 75% 25%, #65A30D 0%, #365314 55%, #14532D 100%);
+
+/* Culture category */
+--accent-culture: #F97316;
+--badge-culture: rgba(249, 115, 22, 0.15);
+--border-culture: rgba(249, 115, 22, 0.35);
+--gradient-culture: radial-gradient(at 25% 25%, #EA580C 0%, #7C2D12 55%, #431407 100%);
+
+/* --- General Purpose Colors (from spec) --- */
+/* Neutral shadows */
+--shadow-panel: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* --- 2.3 Typography Scale & Font Pairings --- */
+/* Fonts are bundled locally via @fontsource in app/layout.tsx */
+
+/* Variable font fallback */
+:root {
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Mono", "Consolas", monospace;
+}
+
+/* --- Typographic Styles from spec --- */
+.h1-hero {
+  font: clamp(1.75rem, 2.8vw, 2.5rem) var(--font-sans) 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.h2-section {
+  font: 1.35rem var(--font-sans) 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+.titile-event-card {
+  font: 1.125rem var(--font-sans) 700;
+  line-height: 1.3;
+  -webkit-line-clamp: 2;
+  -webkit-box-line-clamp: 2;
+  overflow: hidden;
+  display: -webkit-box;
+}
+
+/* Body copy */
+.body-copy {
+  font: 0.9375rem var(--font-sans);
+  /* Wait, spec says Inter 400 - let me use a more specific approach */
+  font-family: Inter, "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* Monospace technical metadata */
+.mono-technical {
+  font: 0.75rem var(--font-mono) 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --- 2.4 Layout Grid, Radii, Glassmorphism & Do's/Don'ts --- */
+/* Container */
+.max-container {
+  max-width: 1380px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Mobile padding */
+@media (max-width: 768px) {
+  .max-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Bento Grid System: 12-column CSS Grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+/* Card Geometry */
+.card-outer {
+  border-radius: 24px;
+  padding: 16px;
+}
+
+.card-inner {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+/* Holographic Foil Effect for QR Tickets */
+.holographic-foil {
+  background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.25) 45%, rgba(139,92,246,0.25) 50%, rgba(16,185,129,0.25) 55%, transparent 80%);
+  background-size: 200% 200%;
+  animation: foil-shift 3s ease-in-out infinite;
+}
+
+@keyframes foil-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Strict Visual Guardrails */
+.naked-text-over-image {
+  /* NEVER place raw unstyled text over busy images */
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+}
+
+/* Toast notification styling */
+.toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.toast {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  padding: 12px 16px;
+  min-width: 280px;
+  max-width: 320px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: toast-in 0.3s ease-out;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Confirmation dialog styling */
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  padding: 24px;
+  min-width: 300px;
+  width: 90%;
+  max-width: 400px;
+  animation: dialog-in 0.3s ease-out;
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Telegram Mini App Frame --- */
+.tg-mini-app-view {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #d8d3c7;
+}
+
+/* Telegram native top header frame */
+.tg-header {
+  background: #1a1a2e;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tg-bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 12px;
+}
+
+/* --- State Persistence --- */
+.state-persisted {
+  /* This class indicates state is persisted to localStorage */
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* --- Telegram Mini App mode (Pulse) --- */
+[data-tma="1"] .site-header,
+[data-tma="1"] .site-bottom-nav {
+  display: none;
+}
+
+[data-tma="1"] body {
+  background: var(--bg-canvas);
+  overscroll-behavior-y: none;
+}
+
+[data-tma="1"] #root {
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+[data-tma="1"] .pulse-shell {
+  max-width: 620px;
+  padding: 14px 12px 44px;
+}
+
+.tma-chrome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -6px 0 14px;
+  padding: 7px 10px;
+  border: 1px solid var(--border-hairline);
+  border-radius: 999px;
+  background: var(--bg-glass-heavy);
+  backdrop-filter: blur(12px);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.tma-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  min-width: 26px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #229ed9;
+  color: #fff;
+  font-weight: 700;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+}
+
+.tma-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tma-sep {
+  color: var(--text-tertiary);
+}
+
+.tma-mode {
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+
+.tma-user {
+  margin-left: auto;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+.tma-close {
+  flex: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 3px 9px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+
+.tma-close:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 420px) {
+  .tma-mode {
+    display: none;
+  }
+  .tma-sep {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Design-system utility layer (from the master spec)
+   Tailwind theme mapping + the component classes the app uses.
+   ============================================================ */
+
+@theme {
+  /* Surfaces & ink */
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-elevated: var(--bg-elevated);
+  --color-subtle: var(--bg-subtle);
+  --color-card: var(--bg-surface);
+
+  --color-ink: var(--text-primary);
+  --color-ink-2: var(--text-secondary);
+  --color-ink-3: var(--text-tertiary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-inverted: var(--text-inverted);
+
+  --color-hairline: var(--border-hairline);
+  --color-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-inverse: var(--text-inverted);
+
+  /* Category signal colours */
+  --color-fintech: var(--accent-fintech);
+  --color-tech: var(--accent-tech);
+  --color-academic: var(--accent-academic);
+  --color-sports: var(--accent-sports);
+  --color-culture: var(--accent-culture);
+
+  /* Typography: Plus Jakarta Sans display, Inter body, JetBrains Mono meta */
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  /* Meta labels follow the reference: small sans, not monospace */
+  --font-mono: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    background: var(--bg-canvas);
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Card: hairline border on paper, no heavy shadows */
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-soft {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-card);
+  }
+
+  /* Buttons */
+  .btn-primary,
+  .btn-soft,
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 8px 20px -12px var(--accent);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+  }
+
+  .btn-soft {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    border-color: transparent;
+  }
+
+  .btn-soft:hover:not(:disabled) {
+    background: var(--bg-subtle);
+    border-color: var(--border-hairline);
+  }
+
+  .btn-ghost {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border-color: var(--border-hairline);
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+  }
+
+  .btn-sm {
+    padding: 7px 14px;
+    font-size: 11.5px;
+  }
+
+  .btn-primary:disabled,
+  .btn-soft:disabled,
+  .btn-ghost:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  /* Badge: mono, uppercase, pill */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 9px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Form controls */
+  .input {
+    display: block;
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-control);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.4;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .input::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  .input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  textarea.input {
+    min-height: 84px;
+    resize: vertical;
+  }
+
+  select.input {
+    appearance: none;
+    padding-right: 28px;
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+      linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--text-secondary);
+  }
+}
+
+/* Editorial paper texture cue: hairlines instead of drop shadows */
+[data-theme="dark"] .card {
+  box-shadow: var(--shadow-card);
+  border-color: var(--border-hairline);
+}
